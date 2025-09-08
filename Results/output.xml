@@ -1,0 +1,464 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 7.3.2 (Python 3.13.2 on win32)" generated="2025-09-08T18:36:50.644063" rpa="false" schemaversion="5">
+<suite id="s1" name="Hero" source="E:\dev\robot-scripts\data-driven-ext-csv-hero\tests\hero.robot">
+<test id="s1-t1" name="Should see correct error messages with invalid logins" line="16">
+<kw name="Begin Web Test" owner="Common" type="SETUP">
+<kw name="Open Browser" owner="SeleniumLibrary">
+<msg time="2025-09-08T18:36:50.910715" level="INFO">Opening browser 'chrome' to base url 'about:blank'.</msg>
+<arg>about:blank</arg>
+<arg>${BROWSER}</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<status status="PASS" start="2025-09-08T18:36:50.910450" elapsed="1.696985"/>
+</kw>
+<kw name="Maximize Browser Window" owner="SeleniumLibrary">
+<doc>Maximizes current browser window.</doc>
+<status status="PASS" start="2025-09-08T18:36:52.607907" elapsed="0.095962"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2025-09-08T18:36:55.705094" level="INFO">Slept 3 seconds.</msg>
+<arg>3s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2025-09-08T18:36:52.704236" elapsed="3.001035"/>
+</kw>
+<status status="PASS" start="2025-09-08T18:36:50.909686" elapsed="4.795748"/>
+</kw>
+<kw name="Get CSV Data" owner="DataManager">
+<kw name="Read Csv File" owner="Csv">
+<msg time="2025-09-08T18:36:55.706902" level="INFO">@{Data} = [ ['admin@test.com', ' TestPassword!', ' Your username is invalid'] | ['tomsmith', ' TestPassword!', ' Your password is invalid'] | ['#BLANK', ' #BLANK', ' Your username is invalid'] ]</msg>
+<var>@{Data}</var>
+<arg>${FilePath}</arg>
+<status status="PASS" start="2025-09-08T18:36:55.706333" elapsed="0.000612"/>
+</kw>
+<return>
+<value>@{Data}</value>
+<status status="PASS" start="2025-09-08T18:36:55.707023" elapsed="0.000065"/>
+</return>
+<msg time="2025-09-08T18:36:55.707281" level="INFO">@{InvalidLoginScenarios} = [ ['admin@test.com', ' TestPassword!', ' Your username is invalid'] | ['tomsmith', ' TestPassword!', ' Your password is invalid'] | ['#BLANK', ' #BLANK', ' Your username is invalid'] ]</msg>
+<var>@{InvalidLoginScenarios}</var>
+<arg>${INVALID_CREDENTIALS_PATH_CSV}</arg>
+<status status="PASS" start="2025-09-08T18:36:55.705932" elapsed="0.001384"/>
+</kw>
+<kw name="HeroApp.Login with Many Invalid Credentials" owner="HeroApp">
+<for flavor="IN">
+<iter>
+<kw name="Run Keyword And Continue On Failure" owner="BuiltIn">
+<kw name="Navigate to Sign In Page" owner="HeroApp">
+<kw name="Navigate To" owner="SignIn">
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2025-09-08T18:36:55.709274" level="INFO">${SiteUrl} =  https://the-internet.herokuapp.com/</msg>
+<var>${SiteUrl}</var>
+<arg>${BASE_URL}[${ENVIRONMENT}]</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2025-09-08T18:36:55.709057" elapsed="0.000254"/>
+</kw>
+<kw name="Catenate" owner="BuiltIn">
+<msg time="2025-09-08T18:36:55.709642" level="INFO">${SignInUrl} =  https://the-internet.herokuapp.com//login</msg>
+<var>${SignInUrl}</var>
+<arg>SEPARATOR=/</arg>
+<arg>${SiteUrl}</arg>
+<arg>${LOGIN_PATH}</arg>
+<doc>Catenates the given items together and returns the resulted string.</doc>
+<status status="PASS" start="2025-09-08T18:36:55.709439" elapsed="0.000236"/>
+</kw>
+<kw name="Go To" owner="SeleniumLibrary">
+<msg time="2025-09-08T18:36:55.709922" level="INFO">Opening url ' https://the-internet.herokuapp.com//login'</msg>
+<arg>${SignInUrl}</arg>
+<doc>Navigates the current browser window to the provided ``url``.</doc>
+<status status="PASS" start="2025-09-08T18:36:55.709797" elapsed="18.032745"/>
+</kw>
+<status status="PASS" start="2025-09-08T18:36:55.708841" elapsed="18.034063"/>
+</kw>
+<status status="PASS" start="2025-09-08T18:36:55.708574" elapsed="18.034542"/>
+</kw>
+<arg>Navigate to Sign In Page</arg>
+<doc>Runs the keyword and continues execution even if a failure occurs.</doc>
+<status status="PASS" start="2025-09-08T18:36:55.708356" elapsed="18.034952"/>
+</kw>
+<kw name="Run Keyword And Continue On Failure" owner="BuiltIn">
+<kw name="Attempt Login" owner="HeroApp">
+<kw name="Enter Credentials" owner="SignIn">
+<kw name="Log" owner="BuiltIn">
+<msg time="2025-09-08T18:37:13.747646" level="INFO">Email: admin@test.com</msg>
+<arg>Email: ${Credentials[0]}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2025-09-08T18:37:13.746618" elapsed="0.001149"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2025-09-08T18:37:13.748289" level="INFO">Password:  TestPassword!</msg>
+<arg>Password: ${Credentials}[1]</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2025-09-08T18:37:13.748006" elapsed="0.000363"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2025-09-08T18:37:13.748832" level="INFO">Error:  Your username is invalid</msg>
+<arg>Error: ${Credentials}[2]</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2025-09-08T18:37:13.748576" elapsed="0.000353"/>
+</kw>
+<if>
+<branch type="IF" condition="'${Credentials[0]}' != '#BLANK'">
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2025-09-08T18:37:13.750542" level="INFO">Typing text 'admin@test.com' into text field 'xpath=//*[@id="username"]'.</msg>
+<arg>${SIGN_IN_EMAIL}</arg>
+<arg>${Credentials}[0]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2025-09-08T18:37:13.749994" elapsed="0.158120"/>
+</kw>
+<status status="PASS" start="2025-09-08T18:37:13.749140" elapsed="0.159146"/>
+</branch>
+<status status="PASS" start="2025-09-08T18:37:13.749081" elapsed="0.159376"/>
+</if>
+<if>
+<branch type="IF" condition="'${Credentials[1]}' != '#BLANK'">
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2025-09-08T18:37:13.909764" level="INFO">Typing text ' TestPassword!' into text field 'xpath=//*[@id="password"]'.</msg>
+<arg>${SIGN_IN_Password}</arg>
+<arg>${Credentials}[1]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2025-09-08T18:37:13.909421" elapsed="0.143766"/>
+</kw>
+<status status="PASS" start="2025-09-08T18:37:13.908619" elapsed="0.144798"/>
+</branch>
+<status status="PASS" start="2025-09-08T18:37:13.908572" elapsed="0.144960"/>
+</if>
+<arg>${LoginScenario}</arg>
+<status status="PASS" start="2025-09-08T18:37:13.745900" elapsed="0.307789"/>
+</kw>
+<kw name="Click Submit" owner="SignIn">
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2025-09-08T18:37:14.054856" level="INFO">Clicking element '//*[@id="login"]/button/i'.</msg>
+<arg>${LOGIN_SUBMIT_BUTTON}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2025-09-08T18:37:14.054556" elapsed="0.100584"/>
+</kw>
+<status status="PASS" start="2025-09-08T18:37:14.054062" elapsed="0.101304"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2025-09-08T18:37:15.156150" level="INFO">Slept 1 second.</msg>
+<arg>1s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2025-09-08T18:37:14.155583" elapsed="1.000701"/>
+</kw>
+<arg>${LoginScenario}</arg>
+<status status="PASS" start="2025-09-08T18:37:13.744587" elapsed="1.411822"/>
+</kw>
+<arg>Attempt Login</arg>
+<arg>${LoginScenario}</arg>
+<doc>Runs the keyword and continues execution even if a failure occurs.</doc>
+<status status="PASS" start="2025-09-08T18:37:13.743924" elapsed="1.412573"/>
+</kw>
+<kw name="Run Keyword And Continue On Failure" owner="BuiltIn">
+<kw name="Verify Login Page Error Message" owner="HeroApp">
+<kw name="Verify Error Message" owner="SignIn">
+<kw name="Page Should Contain" owner="SeleniumLibrary">
+<msg time="2025-09-08T18:37:15.180500" level="INFO">Current page contains text ' Your username is invalid'.</msg>
+<arg>${Credentials[2]}</arg>
+<doc>Verifies that current page contains ``text``.</doc>
+<status status="PASS" start="2025-09-08T18:37:15.157749" elapsed="0.022870"/>
+</kw>
+<arg>${LoginScenario}</arg>
+<status status="PASS" start="2025-09-08T18:37:15.157405" elapsed="0.023566"/>
+</kw>
+<arg>${LoginScenario}</arg>
+<status status="PASS" start="2025-09-08T18:37:15.156989" elapsed="0.024081"/>
+</kw>
+<arg>Verify Login Page Error Message</arg>
+<arg>${LoginScenario}</arg>
+<doc>Runs the keyword and continues execution even if a failure occurs.</doc>
+<status status="PASS" start="2025-09-08T18:37:15.156700" elapsed="0.024451"/>
+</kw>
+<var name="${LoginScenario}">['admin@test.com', ' TestPassword!', ' Your username is invalid']</var>
+<status status="PASS" start="2025-09-08T18:36:55.708192" elapsed="19.473018"/>
+</iter>
+<iter>
+<kw name="Run Keyword And Continue On Failure" owner="BuiltIn">
+<kw name="Navigate to Sign In Page" owner="HeroApp">
+<kw name="Navigate To" owner="SignIn">
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2025-09-08T18:37:15.182776" level="INFO">${SiteUrl} =  https://the-internet.herokuapp.com/</msg>
+<var>${SiteUrl}</var>
+<arg>${BASE_URL}[${ENVIRONMENT}]</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2025-09-08T18:37:15.182526" elapsed="0.000291"/>
+</kw>
+<kw name="Catenate" owner="BuiltIn">
+<msg time="2025-09-08T18:37:15.183205" level="INFO">${SignInUrl} =  https://the-internet.herokuapp.com//login</msg>
+<var>${SignInUrl}</var>
+<arg>SEPARATOR=/</arg>
+<arg>${SiteUrl}</arg>
+<arg>${LOGIN_PATH}</arg>
+<doc>Catenates the given items together and returns the resulted string.</doc>
+<status status="PASS" start="2025-09-08T18:37:15.182963" elapsed="0.000282"/>
+</kw>
+<kw name="Go To" owner="SeleniumLibrary">
+<msg time="2025-09-08T18:37:15.183553" level="INFO">Opening url ' https://the-internet.herokuapp.com//login'</msg>
+<arg>${SignInUrl}</arg>
+<doc>Navigates the current browser window to the provided ``url``.</doc>
+<status status="PASS" start="2025-09-08T18:37:15.183394" elapsed="0.399525"/>
+</kw>
+<status status="PASS" start="2025-09-08T18:37:15.182254" elapsed="0.400854"/>
+</kw>
+<status status="PASS" start="2025-09-08T18:37:15.181899" elapsed="0.401317"/>
+</kw>
+<arg>Navigate to Sign In Page</arg>
+<doc>Runs the keyword and continues execution even if a failure occurs.</doc>
+<status status="PASS" start="2025-09-08T18:37:15.181655" elapsed="0.401659"/>
+</kw>
+<kw name="Run Keyword And Continue On Failure" owner="BuiltIn">
+<kw name="Attempt Login" owner="HeroApp">
+<kw name="Enter Credentials" owner="SignIn">
+<kw name="Log" owner="BuiltIn">
+<msg time="2025-09-08T18:37:15.585128" level="INFO">Email: tomsmith</msg>
+<arg>Email: ${Credentials[0]}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2025-09-08T18:37:15.584554" elapsed="0.000646"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2025-09-08T18:37:15.585574" level="INFO">Password:  TestPassword!</msg>
+<arg>Password: ${Credentials}[1]</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2025-09-08T18:37:15.585393" elapsed="0.000238"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2025-09-08T18:37:15.585976" level="INFO">Error:  Your password is invalid</msg>
+<arg>Error: ${Credentials}[2]</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2025-09-08T18:37:15.585773" elapsed="0.000308"/>
+</kw>
+<if>
+<branch type="IF" condition="'${Credentials[0]}' != '#BLANK'">
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2025-09-08T18:37:15.587467" level="INFO">Typing text 'tomsmith' into text field 'xpath=//*[@id="username"]'.</msg>
+<arg>${SIGN_IN_EMAIL}</arg>
+<arg>${Credentials}[0]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2025-09-08T18:37:15.587085" elapsed="0.127977"/>
+</kw>
+<status status="PASS" start="2025-09-08T18:37:15.586268" elapsed="0.128977"/>
+</branch>
+<status status="PASS" start="2025-09-08T18:37:15.586207" elapsed="0.129139"/>
+</if>
+<if>
+<branch type="IF" condition="'${Credentials[1]}' != '#BLANK'">
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2025-09-08T18:37:15.718201" level="INFO">Typing text ' TestPassword!' into text field 'xpath=//*[@id="password"]'.</msg>
+<arg>${SIGN_IN_Password}</arg>
+<arg>${Credentials}[1]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2025-09-08T18:37:15.717810" elapsed="0.145750"/>
+</kw>
+<status status="PASS" start="2025-09-08T18:37:15.715553" elapsed="0.148166"/>
+</branch>
+<status status="PASS" start="2025-09-08T18:37:15.715502" elapsed="0.148416"/>
+</if>
+<arg>${LoginScenario}</arg>
+<status status="PASS" start="2025-09-08T18:37:15.584233" elapsed="0.279898"/>
+</kw>
+<kw name="Click Submit" owner="SignIn">
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2025-09-08T18:37:15.865465" level="INFO">Clicking element '//*[@id="login"]/button/i'.</msg>
+<arg>${LOGIN_SUBMIT_BUTTON}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2025-09-08T18:37:15.865095" elapsed="1.286045"/>
+</kw>
+<status status="PASS" start="2025-09-08T18:37:15.864505" elapsed="1.286814"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2025-09-08T18:37:18.152104" level="INFO">Slept 1 second.</msg>
+<arg>1s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2025-09-08T18:37:17.151533" elapsed="1.000714"/>
+</kw>
+<arg>${LoginScenario}</arg>
+<status status="PASS" start="2025-09-08T18:37:15.583759" elapsed="2.568646"/>
+</kw>
+<arg>Attempt Login</arg>
+<arg>${LoginScenario}</arg>
+<doc>Runs the keyword and continues execution even if a failure occurs.</doc>
+<status status="PASS" start="2025-09-08T18:37:15.583490" elapsed="2.569012"/>
+</kw>
+<kw name="Run Keyword And Continue On Failure" owner="BuiltIn">
+<kw name="Verify Login Page Error Message" owner="HeroApp">
+<kw name="Verify Error Message" owner="SignIn">
+<kw name="Page Should Contain" owner="SeleniumLibrary">
+<msg time="2025-09-08T18:37:18.170370" level="INFO">Current page contains text ' Your password is invalid'.</msg>
+<arg>${Credentials[2]}</arg>
+<doc>Verifies that current page contains ``text``.</doc>
+<status status="PASS" start="2025-09-08T18:37:18.153878" elapsed="0.016586"/>
+</kw>
+<arg>${LoginScenario}</arg>
+<status status="PASS" start="2025-09-08T18:37:18.153494" elapsed="0.017060"/>
+</kw>
+<arg>${LoginScenario}</arg>
+<status status="PASS" start="2025-09-08T18:37:18.153042" elapsed="0.017581"/>
+</kw>
+<arg>Verify Login Page Error Message</arg>
+<arg>${LoginScenario}</arg>
+<doc>Runs the keyword and continues execution even if a failure occurs.</doc>
+<status status="PASS" start="2025-09-08T18:37:18.152745" elapsed="0.017942"/>
+</kw>
+<var name="${LoginScenario}">['tomsmith', ' TestPassword!', ' Your password is invalid']</var>
+<status status="PASS" start="2025-09-08T18:37:15.181430" elapsed="2.989303"/>
+</iter>
+<iter>
+<kw name="Run Keyword And Continue On Failure" owner="BuiltIn">
+<kw name="Navigate to Sign In Page" owner="HeroApp">
+<kw name="Navigate To" owner="SignIn">
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2025-09-08T18:37:18.171878" level="INFO">${SiteUrl} =  https://the-internet.herokuapp.com/</msg>
+<var>${SiteUrl}</var>
+<arg>${BASE_URL}[${ENVIRONMENT}]</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2025-09-08T18:37:18.171662" elapsed="0.000248"/>
+</kw>
+<kw name="Catenate" owner="BuiltIn">
+<msg time="2025-09-08T18:37:18.172205" level="INFO">${SignInUrl} =  https://the-internet.herokuapp.com//login</msg>
+<var>${SignInUrl}</var>
+<arg>SEPARATOR=/</arg>
+<arg>${SiteUrl}</arg>
+<arg>${LOGIN_PATH}</arg>
+<doc>Catenates the given items together and returns the resulted string.</doc>
+<status status="PASS" start="2025-09-08T18:37:18.172020" elapsed="0.000218"/>
+</kw>
+<kw name="Go To" owner="SeleniumLibrary">
+<msg time="2025-09-08T18:37:18.172468" level="INFO">Opening url ' https://the-internet.herokuapp.com//login'</msg>
+<arg>${SignInUrl}</arg>
+<doc>Navigates the current browser window to the provided ``url``.</doc>
+<status status="PASS" start="2025-09-08T18:37:18.172353" elapsed="0.411455"/>
+</kw>
+<status status="PASS" start="2025-09-08T18:37:18.171449" elapsed="0.412736"/>
+</kw>
+<status status="PASS" start="2025-09-08T18:37:18.171197" elapsed="0.413095"/>
+</kw>
+<arg>Navigate to Sign In Page</arg>
+<doc>Runs the keyword and continues execution even if a failure occurs.</doc>
+<status status="PASS" start="2025-09-08T18:37:18.171013" elapsed="0.413345"/>
+</kw>
+<kw name="Run Keyword And Continue On Failure" owner="BuiltIn">
+<kw name="Attempt Login" owner="HeroApp">
+<kw name="Enter Credentials" owner="SignIn">
+<kw name="Log" owner="BuiltIn">
+<msg time="2025-09-08T18:37:18.586578" level="INFO">Email: #BLANK</msg>
+<arg>Email: ${Credentials[0]}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2025-09-08T18:37:18.585829" elapsed="0.000823"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2025-09-08T18:37:18.587117" level="INFO">Password:  #BLANK</msg>
+<arg>Password: ${Credentials}[1]</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2025-09-08T18:37:18.586839" elapsed="0.000366"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2025-09-08T18:37:18.587559" level="INFO">Error:  Your username is invalid</msg>
+<arg>Error: ${Credentials}[2]</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2025-09-08T18:37:18.587383" elapsed="0.000231"/>
+</kw>
+<if>
+<branch type="IF" condition="'${Credentials[0]}' != '#BLANK'">
+<kw name="Input Text" owner="SeleniumLibrary">
+<arg>${SIGN_IN_EMAIL}</arg>
+<arg>${Credentials}[0]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="NOT RUN" start="2025-09-08T18:37:18.588485" elapsed="0.000059"/>
+</kw>
+<status status="NOT RUN" start="2025-09-08T18:37:18.587780" elapsed="0.000829"/>
+</branch>
+<status status="PASS" start="2025-09-08T18:37:18.587748" elapsed="0.000907"/>
+</if>
+<if>
+<branch type="IF" condition="'${Credentials[1]}' != '#BLANK'">
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2025-09-08T18:37:18.591333" level="INFO">Typing text ' #BLANK' into text field 'xpath=//*[@id="password"]'.</msg>
+<arg>${SIGN_IN_Password}</arg>
+<arg>${Credentials}[1]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2025-09-08T18:37:18.589495" elapsed="0.129014"/>
+</kw>
+<status status="PASS" start="2025-09-08T18:37:18.588728" elapsed="0.129962"/>
+</branch>
+<status status="PASS" start="2025-09-08T18:37:18.588708" elapsed="0.130090"/>
+</if>
+<arg>${LoginScenario}</arg>
+<status status="PASS" start="2025-09-08T18:37:18.585476" elapsed="0.133442"/>
+</kw>
+<kw name="Click Submit" owner="SignIn">
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2025-09-08T18:37:18.721754" level="INFO">Clicking element '//*[@id="login"]/button/i'.</msg>
+<arg>${LOGIN_SUBMIT_BUTTON}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2025-09-08T18:37:18.721204" elapsed="0.851930"/>
+</kw>
+<status status="PASS" start="2025-09-08T18:37:18.719643" elapsed="0.853786"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2025-09-08T18:37:20.574298" level="INFO">Slept 1 second.</msg>
+<arg>1s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2025-09-08T18:37:19.573728" elapsed="1.000723"/>
+</kw>
+<arg>${LoginScenario}</arg>
+<status status="PASS" start="2025-09-08T18:37:18.584881" elapsed="1.989713"/>
+</kw>
+<arg>Attempt Login</arg>
+<arg>${LoginScenario}</arg>
+<doc>Runs the keyword and continues execution even if a failure occurs.</doc>
+<status status="PASS" start="2025-09-08T18:37:18.584562" elapsed="1.990130"/>
+</kw>
+<kw name="Run Keyword And Continue On Failure" owner="BuiltIn">
+<kw name="Verify Login Page Error Message" owner="HeroApp">
+<kw name="Verify Error Message" owner="SignIn">
+<kw name="Page Should Contain" owner="SeleniumLibrary">
+<msg time="2025-09-08T18:37:20.590238" level="INFO">Current page contains text ' Your username is invalid'.</msg>
+<arg>${Credentials[2]}</arg>
+<doc>Verifies that current page contains ``text``.</doc>
+<status status="PASS" start="2025-09-08T18:37:20.576083" elapsed="0.014251"/>
+</kw>
+<arg>${LoginScenario}</arg>
+<status status="PASS" start="2025-09-08T18:37:20.575653" elapsed="0.014777"/>
+</kw>
+<arg>${LoginScenario}</arg>
+<status status="PASS" start="2025-09-08T18:37:20.575202" elapsed="0.015295"/>
+</kw>
+<arg>Verify Login Page Error Message</arg>
+<arg>${LoginScenario}</arg>
+<doc>Runs the keyword and continues execution even if a failure occurs.</doc>
+<status status="PASS" start="2025-09-08T18:37:20.574906" elapsed="0.015659"/>
+</kw>
+<var name="${LoginScenario}">['#BLANK', ' #BLANK', ' Your username is invalid']</var>
+<status status="PASS" start="2025-09-08T18:37:18.170885" elapsed="2.419729"/>
+</iter>
+<var>${LoginScenario}</var>
+<value>@{InvalidLoginScenarios}</value>
+<status status="PASS" start="2025-09-08T18:36:55.708005" elapsed="24.882669"/>
+</for>
+<arg>@{InvalidLoginScenarios}</arg>
+<status status="PASS" start="2025-09-08T18:36:55.707748" elapsed="24.883018"/>
+</kw>
+<kw name="End Web Test" owner="Common" type="TEARDOWN">
+<kw name="Close All Browsers" owner="SeleniumLibrary">
+<doc>Closes all open browsers and resets the browser cache.</doc>
+<status status="PASS" start="2025-09-08T18:37:20.591482" elapsed="2.342429"/>
+</kw>
+<status status="PASS" start="2025-09-08T18:37:20.591219" elapsed="2.342836"/>
+</kw>
+<status status="PASS" start="2025-09-08T18:36:50.908705" elapsed="32.025620"/>
+</test>
+<doc>Demonstrate a need for data-driven testing</doc>
+<status status="PASS" start="2025-09-08T18:36:50.645586" elapsed="32.289844"/>
+</suite>
+<statistics>
+<total>
+<stat pass="1" fail="0" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat name="Hero" id="s1" pass="1" fail="0" skip="0">Hero</stat>
+</suite>
+</statistics>
+<errors>
+<msg time="2025-09-08T18:36:50.903542" level="WARN">Error in file 'E:\dev\robot-scripts\data-driven-ext-csv-hero\Resources\DataManager.robot' on line 10: The '[Return]' setting is deprecated. Use the 'RETURN' statement instead.</msg>
+</errors>
+</robot>
